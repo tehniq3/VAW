@@ -111,8 +111,8 @@ sumacurent = sumacurent/20.;
 sumatensiune = sumatensiune/20.;
 
 // calculam valorile tensiunii si curentului de la sursa
-curent = (float)(vref / rsunt * sumacurent / 1024.0) ;
-tensiune = (float)((R1+R2)/R1 * vref * sumatensiune / 1024.0) ;
+curent = (float)(Amp* rsunt * sumacurent * vref/ 1024.0) ;
+tensiune = (float)((R1+R2)/R1 * sumatensiune * vref / 1024.0) ;
 tensiune = (float)(tensiune - curent * rsunt);  // facem media rezultatelor si scadem caderea de tensiune de pe rezistenta sunt
 putere = (float)(tensiune * curent);   // putere consumata
 
