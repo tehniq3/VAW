@@ -2,7 +2,7 @@
  * indicator de panou
  * program scris de Nicu FLORICA (niq_ro) pentru Georgel GHITA
  * 
- * ver.0 - indicare tensiune, curent, putere, temperatura, decuplare releu la supratempratura si supracurent
+ * ver.0 - indicare tensiune, curent, putere, temperatura, decuplare releu la supratemperatura si supracurent
  */
 
 #define pinAN0 A0  // pinul de masura tensiune
