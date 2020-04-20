@@ -1,2 +1,2 @@
-# voltampermeter_psu2
+# voltampermeter
 info in tests ....
