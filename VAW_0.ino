@@ -29,10 +29,10 @@ byte grad[8] = {
   B00000,
 };
 
-float R2 = 51.; // rezistenta conectata de la + la A1
-float R1 = 1. ; // rezistenta conectata de la A1 la GND
+float R2 = 51.; // rezistenta conectata de la + la A0
+float R1 = 1. ; // rezistenta conectata de la A0 la GND
 float rsunt = 0.01 ; // valoare rezistenta masura (sunt)
-float Amp = 11. ; // valoare amplificare operational (reglata din semireglabil)
+float Amp = 10. ; // valoare amplificare operational (reglata din semireglabil)
 float vref = 1.1 ;  // tensiune de referinta interna (1,1V)
 
 int trcurent = 0;  // treapta masurare curent (0...1023)
