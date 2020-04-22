@@ -4,6 +4,7 @@
  * 
  * ver.0 - indicare tensiune, curent, putere, temperatura, decuplare releu la supratempratura si supracurent
  * ver.0a1 - corectat afisare temperaura si facut mai multe masuratori de temperatura ca si la tensiune si curent
+ * ver.0a2 - tensiune de referinta interbna, diferita
  */
 
 #define pinAN0 A0  // pinul de masura tensiune
@@ -34,7 +35,9 @@ float R2 = 51.; // rezistenta conectata de la + la A0
 float R1 = 1. ; // rezistenta conectata de la A0 la GND
 float rsunt = 0.01 ; // valoare rezistenta masura (sunt)
 float Amp = 10. ; // valoare amplificare operational (reglata din semireglabil)
-float vref = 1.1 ;  // tensiune de referinta interna (1,1V)
+
+//float vref = 1.1 ;  // tensiune de referinta interna (1,1V) pentru ATmega328 si ATmega168
+float vref = 2.56 ;  // tensiune de referinta interna (1,1V) ATmega32U4 siATmega8
 
 int trcurent = 0;  // treapta masurare curent (0...1023)
 int trtensiune = 0; // treapta masurare tensiune (0...1023)
@@ -61,6 +64,8 @@ int rpm;  // turatie controlata ventilator
 boolean senzorLM35 = true; // senzor LM35 montat
 
 void setup() {  // ce este pus aici ruleaza doar o data
+
+  analogReference(INTERNAL);  // referinta de 1,1V
  lcd.begin(16, 2);  // selectie afisaj 1602 (16 colane si 2 randuri)
  lcd.createChar(0, grad);  // crearea simbolului pentru grad Celsius
  lcd.clear();   // stergere ecran
