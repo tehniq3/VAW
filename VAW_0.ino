@@ -158,7 +158,7 @@ if ((digitalRead(pinRST) == LOW) and (te < telim))
 lcd.setCursor(11, 1);
 if (te < 100.0) lcd.print(" ");  // daca tempratura e mai mica de 100 grade Celsius 
 if (te < 10.0) lcd.print(" ");  // daca tempratura e mai mica de 10 grade Celsius 
-lcd.print(te,0);  // afisam doar valoarea intreaga
+lcd.print(te);  // afisam doar valoarea intreaga
 //   lcd.write(0b11011111);  // caracter asemanatpor cu gradul Celsius
 lcd.write(byte(0));  // simbolul de grad Celsius creat de mine
 lcd.print("C"); 
