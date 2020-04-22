@@ -2,7 +2,8 @@
  * indicator de panou
  * program scris de Nicu FLORICA (niq_ro) pentru Georgel GHITA
  * 
- * ver.0 - indicare tensiune, curent, putere, temperatura, decuplare releu la supratemperatura si supracurent
+ * ver.0 - indicare tensiune, curent, putere, temperatura, decuplare releu la supratempratura si supracurent
+ * ver.0a1 - corectat afisare temperaura si facut mai multe masuratori de temperatura ca si la tensiune si curent
  */
 
 #define pinAN0 A0  // pinul de masura tensiune
@@ -40,6 +41,7 @@ int trtensiune = 0; // treapta masurare tensiune (0...1023)
 
 float sumatensiune = 0.;   // valoare insumare tensiune pentru calcul medie
 float sumacurent = 0.; // valoare insumare curent pentru calcul medie
+float sumatemp = 0. ; // valoare insumare temperaturi pentru calcul medie
 
 float curent = 0.;   // valoare curent
 float tensiune = 0.; // valoare tensiune
@@ -59,8 +61,8 @@ int rpm;  // turatie controlata ventilator
 boolean senzorLM35 = true; // senzor LM35 montat
 
 void setup() {  // ce este pus aici ruleaza doar o data
- lcd.createChar(0, grad);  // crearea simbolului pentru grad Celsius
  lcd.begin(16, 2);  // selectie afisaj 1602 (16 colane si 2 randuri)
+ lcd.createChar(0, grad);  // crearea simbolului pentru grad Celsius
  lcd.clear();   // stergere ecran
 
 pinMode(pinAN0, INPUT);  // pin definit ca intrare
@@ -78,14 +80,14 @@ digitalWrite(pinBUZ, LOW);  // avertizor acustic oprit
   lcd.print("indicator panou");  
   lcd.setCursor(0, 1);
   lcd.print("tensiune-curent");
-  delay (2500);
+  delay (1000);
   lcd.clear();
   
   lcd.setCursor(3, 0);
   lcd.print("Umax = 55V");  
   lcd.setCursor(3, 1);
   lcd.print("Imax = 10A");
-  delay (2500);
+  delay (10000);
   lcd.clear();
 }
 
@@ -134,10 +136,19 @@ putere = (float)(tensiune * curent);   // putere consumata
  lcd.print("W"); 
 
 if (senzorLM35)  // daca este senzor LM35
-{   
-   trtemp = analogRead(pinAN2);    //  citire valoare pe intrarea analogica 
-   te = (float)(0.01 * vref * trtemp / 1024.0) ; // conversie in grade Celsius
-
+{  
+ sumatemp = 0;    
+  for (int i=1; i <= 20; i++)
+  {
+  // citeste treptele de tensiune (0-1023) si adauga la o variabila de cumulare
+  trtemp = analogRead(pinAN2);    //  citire valoare pe intrarea analogica 
+  sumatemp = sumatemp + trtemp;  // cumuleaza valoarea
+  delay (20);  // pauza de 20ms intre masuratori
+    }
+// calculam valorile medii
+sumatemp = sumatemp/20.;
+   te = (float)(1000 * vref * sumatemp / 1024.0) ; // conversie in grade Celsius
+   
 if ((digitalRead(pinRST) == LOW) and (te < telim))
 {
   digitalWrite(pinREL, HIGH);  // cuplez bornele
