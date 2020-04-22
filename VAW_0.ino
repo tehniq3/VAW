@@ -147,7 +147,7 @@ if (senzorLM35)  // daca este senzor LM35
     }
 // calculam valorile medii
 sumatemp = sumatemp/20.;
-   te = (float)(1000 * vref * sumatemp / 1024.0) ; // conversie in grade Celsius
+   te = (float)(100 * vref * sumatemp / 1024.0) ; // conversie in grade Celsius
    
 if ((digitalRead(pinRST) == LOW) and (te < telim))
 {
